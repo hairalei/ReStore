@@ -1,11 +1,13 @@
 using API.Data;
 using API.Entities;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
     [ApiController]
+    [EnableCors("CorsPolicy")]
     [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
@@ -23,7 +25,8 @@ namespace API.Controllers
             
         }
 
-        [HttpGet("{id}")] // api/products/id
+        [HttpGet("{id}")]
+         // api/products/id
         public async Task<ActionResult<Product>> GetProduct(int id) 
         {
             var product = await _context.Products.FindAsync(id);

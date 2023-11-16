@@ -1,4 +1,5 @@
 using API.Data;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,7 @@ builder.Services.AddDbContext<StoreContext>(opt =>
 {
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+builder.Services.AddCors();
 
 var app = builder.Build();
 
@@ -24,6 +26,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseCors(opt => {
+    opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000", "http://localhost:3001");
+});
+
 
 app.UseAuthorization();
 
@@ -42,5 +51,6 @@ catch (Exception ex)
 {
     logger.LogError(ex, "A problem occurred during migration.");
 }
+
 
 app.Run();
