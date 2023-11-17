@@ -17,7 +17,7 @@ function Catalog() {
       quantityInStock: 100,
     },
     {
-      id: 9,
+      id: 10,
       name: 'Purple React Woolen Hat',
       description:
         'Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.',
